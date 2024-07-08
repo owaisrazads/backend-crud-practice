@@ -3,11 +3,13 @@
 import express from 'express';
 import connectDB from './config/db.js';
 import dotenv from 'dotenv';
+import cors from "cors"
 import todoRoutes from "./routers/todoRoutes.js"
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 
 // Connect to the database
 connectDB();

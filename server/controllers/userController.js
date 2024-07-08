@@ -75,9 +75,10 @@ export const updateTodo = async (req, res) => {
     }
     todo.name = name || todo.name;
     todo.title = title || todo.title;
-    await Todos.save(); // Save the updated instance
+    await todo.save(); // Save the updated instance
     res.status(200).json(todo);
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Server error", error });
   }
 };
