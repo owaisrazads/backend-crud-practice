@@ -1,11 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { MdAutoDelete } from 'react-icons/md';
+import { RiEdit2Fill } from 'react-icons/ri';
 
 const App = () => {
 
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [data, setData] = useState([]);
+  const [setEditId, setIsEditing] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:3000/todos')
@@ -35,13 +38,64 @@ const App = () => {
 
 
 
-  const handleDelete = (index) => {
-    // console.log("delete", index);
-    console.log(data[index]._id);
-  
-    axios.delete('http://localhost:3000/todos', {name, title})
-    
+
+
+
+//   const handleDelete = (index) => {
+//   const id = data[index]._id;
+//   axios.delete(`http://localhost:3000/todos/${id}`)
+//     .then((res) => {
+//       setData(data.filter((item) => item._id !== id));
+//     })
+//     .catch((err) => {
+//       console.log("Delete error", err);
+//     });
+// }
+
+
+
+const handleDelete = (index) => {
+  console.log(data[index]._id);
+  const id = data[index]._id;
+  axios.delete(`http://localhost:3000/todos/${id}`)
+    .then((res) => {
+      const updatedData = [...data];
+      updatedData.splice(index, 1);
+      setData(updatedData);
+    })
+    .catch((err) => {
+      console.log("Delete error", err);
+    });
+}
+
+
+
+
+const handleEdit = (index) => {
+  const id = data[index]._id;
+  const currentName = data[index].name;
+  const currentTitle = data[index].title;
+
+  // Prompt user for new name and title
+  const newName = prompt("Enter new name:", currentName);
+  const newTitle = prompt("Enter new title:", currentTitle);
+
+  // Only proceed if user entered values
+  if (newName !== null && newTitle !== null) {
+    axios.put(`http://localhost:3000/todos/${id}`, { name: newName, title: newTitle })
+      .then((res) => {
+        const updatedData = [...data];
+        updatedData[index] = res.data; // Update the item in the array
+        setData(updatedData); // Update state with new data
+      })
+      .catch((err) => {
+        console.log("Update error", err);
+      });
   }
+};
+
+
+
 
 
 
@@ -58,19 +112,22 @@ const App = () => {
       </div>
 
      {
-        data.map((item, index) => (
-         <div className='flex justify-center mt-3'>
-        <div className='   w-96 flex flex-col gap-2'>
-           <p className='text-center poppins-regular-italic mt-2 bg-[#f0efef] p-2'>Name: <span className='font-semibold poppins-semibold-italic '>{item.name}</span></p>
-           <p className='text-center  poppins-regular-italic bg-[#f0efef] p-2  '>Title: <span className='font-semibold poppins-semibold-italic'>{item.title}</span></p>
-         
-         <div className='flex gap-3 justify-center'>
-         <button className='bg-[#69da5ae0] px-2 py-1 rounded-lg text-[#fff]'>Edit</button>
-         <button className='bg-[#eb4a4a] px-2 py-1 rounded-lg text-[#fff]'  onClick={()=>handleDelete(index)}>Delete</button>
-         </div>
+       data.length > 0 ?  data.map((item, index) => (
+        <div className='flex justify-center mt-3'>
+       <div className='w-96 flex flex-col gap-2 border-[1px] border-gray-100 shadow-sm bg-blue-50 p-2 rounded-md'>
+          <p className='text-center poppins-regular mt-2 bg-blue-200 p-2 rounded-md'>Name: <span className='semibold poppins-semibold '>{item.name}</span></p>
+          <p className='text-center  poppins-regular bg-blue-200 p-2 rounded-md '>Title: <span className=' poppins-semibold'>{item.title}</span></p>
+        
+        <div className='flex gap-3 justify-center'>
+        <button className='bg-[#5ae247e0] px-2 py-1 rounded-lg text-[#fff] w-full flex items-center justify-between poppins-regular' onClick={()=>handleEdit(index)}>Edit <RiEdit2Fill className='text-xl'/></button>
+        <button className='bg-[#eb4a4a] px-2 py-1 rounded-lg text-[#fff] w-full  flex items-center justify-between poppins-regular'  onClick={()=>handleDelete(index)}>Delete <MdAutoDelete className='text-xl'/>
+        </button>
         </div>
-         </div>
-        ))
+       </div>
+        </div>
+       )): <div className='flex justify-center'>
+        <p className='text-center poppins-semibold text-xl mt-5 bg-blue-100 p-2 w-96 rounded-md'>No Todo...</p>
+       </div>
       }
 
     </>
