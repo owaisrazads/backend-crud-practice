@@ -107,7 +107,7 @@ const handleEdit = (index) => {
         <form onSubmit={handleForm} className='flex justify-center flex-col items-center gap-3 mt-5'>
           <input type="text" placeholder='Enter Name' className='border-[#000] border-[1px] outline-none w-96 p-2 rounded-md max-[425px]:w-72' required onChange={e=>setName(e.target.value)} value={name} />
           <input type="text" placeholder='Enter Tite' className='border-[#000] border-[1px] outline-none w-96 p-2 rounded-md max-[425px]:w-72' required onChange={e=>setTitle(e.target.value)} value={title} />
-          <button type='submit ' className='bg-blue-500 p-2 text-white rounded-md hover:bg-blue-600 transition-all max-[800px]:w-72 max-[425px]:w-72'>Add Todo</button>
+          <button type='submit ' className='bg-blue-500 p-2 text-white rounded-md hover:bg-blue-600 transition-all  max-[425px]:w-72'>Add Todo</button>
         </form>
       </div>
 
