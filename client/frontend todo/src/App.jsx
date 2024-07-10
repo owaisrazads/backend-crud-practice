@@ -105,16 +105,16 @@ const handleEdit = (index) => {
 
       <div className=''>
         <form onSubmit={handleForm} className='flex justify-center flex-col items-center gap-3 mt-5'>
-          <input type="text" placeholder='Enter Name' className='border-[#000] border-[1px] outline-none w-96 p-2 rounded-md' required onChange={e=>setName(e.target.value)} value={name} />
-          <input type="text" placeholder='Enter Tite' className='border-[#000] border-[1px] outline-none w-96 p-2 rounded-md' required onChange={e=>setTitle(e.target.value)} value={title} />
-          <button type='submit ' className='bg-blue-500 p-2 text-white rounded-md hover:bg-blue-600 transition-all'>Add</button>
+          <input type="text" placeholder='Enter Name' className='border-[#000] border-[1px] outline-none w-96 p-2 rounded-md max-[425px]:w-72' required onChange={e=>setName(e.target.value)} value={name} />
+          <input type="text" placeholder='Enter Tite' className='border-[#000] border-[1px] outline-none w-96 p-2 rounded-md max-[425px]:w-72' required onChange={e=>setTitle(e.target.value)} value={title} />
+          <button type='submit ' className='bg-blue-500 p-2 text-white rounded-md hover:bg-blue-600 transition-all max-[800px]:w-72 max-[425px]:w-72'>Add Todo</button>
         </form>
       </div>
 
      {
        data.length > 0 ?  data.map((item, index) => (
         <div className='flex justify-center mt-3'>
-       <div className='w-96 flex flex-col gap-2 border-[1px] border-gray-100 shadow-sm bg-blue-50 p-2 rounded-md'>
+       <div className='w-96 max-[425px]:w-72 flex flex-col gap-2 border-[1px] border-gray-100 shadow-sm bg-blue-50 p-2 rounded-md'>
           <p className='text-center poppins-regular mt-2 bg-blue-200 p-2 rounded-md'>Name: <span className='semibold poppins-semibold '>{item.name}</span></p>
           <p className='text-center  poppins-regular bg-blue-200 p-2 rounded-md '>Title: <span className=' poppins-semibold'>{item.title}</span></p>
         
@@ -126,7 +126,7 @@ const handleEdit = (index) => {
        </div>
         </div>
        )): <div className='flex justify-center'>
-        <p className='text-center poppins-semibold text-xl mt-5 bg-blue-50 p-2 w-96 rounded-md'>No Todo...</p>
+        <p className='text-center poppins-semibold text-xl mt-5 bg-blue-50 p-2 w-96 rounded-md max-[425px]:text-lg max-[425px]:w-72'>No Todo...</p>
        </div>
       }
 
