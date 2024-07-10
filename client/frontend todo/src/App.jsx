@@ -126,7 +126,7 @@ const handleEdit = (index) => {
        </div>
         </div>
        )): <div className='flex justify-center'>
-        <p className='text-center poppins-semibold text-xl mt-5 bg-blue-100 p-2 w-96 rounded-md'>No Todo...</p>
+        <p className='text-center poppins-semibold text-xl mt-5 bg-blue-50 p-2 w-96 rounded-md'>No Todo...</p>
        </div>
       }
 
